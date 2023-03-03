@@ -1,6 +1,14 @@
 const express = require("express")
 const cors = require("cors")
 
+const mongoose = require("mongoose")
+require('dotenv').config()
+
+const url = `mongodb+srv://generalKAS:${password}@fullstackopen.rpt7uia.mongodb.net/noteApp?retryWrites=true&w=majority`
+
+mongoose.set('strictQuery',false)
+mongoose.connect(url)
+
 const app = express()
 
 // Enable cors
