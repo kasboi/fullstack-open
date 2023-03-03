@@ -3,8 +3,11 @@ const cors = require("cors")
 
 const app = express()
 
+// Enable cors
 app.use(cors())
+// Allow express to parse JSON
 app.use(express.json())
+// Allow express to serve static files from the dist folder
 app.use(express.static("dist"))
 
 const notes = [
@@ -30,6 +33,7 @@ const reqLogger = (req, res, next) => {
     console.log("Path:  ", req.path)
     console.log("Body:  ", req.body)
     console.log("---")
+    // Call the next middleware
     next()
 }
 
