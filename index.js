@@ -1,13 +1,8 @@
+//It's important that dotenv gets imported before the note model is imported. This ensures that the environment variables from the .env file are available globally before the code from the other modules is imported.
+require("dotenv").config()
 const express = require("express")
 const cors = require("cors")
-
-const mongoose = require("mongoose")
-require('dotenv').config()
-
-const url = `mongodb+srv://generalKAS:${password}@fullstackopen.rpt7uia.mongodb.net/noteApp?retryWrites=true&w=majority`
-
-mongoose.set('strictQuery',false)
-mongoose.connect(url)
+const Note = require('./models/note')
 
 const app = express()
 
@@ -52,7 +47,8 @@ app.get("/", (req, res) => {
 })
 
 app.get("/api/notes", (req, res) => {
-    res.json(notes)
+    // res.json(notes)
+    Note.find({}).then((notes) => res.json(notes))
 })
 
 app.get("/api/notes/:id", (req, res) => {
@@ -65,10 +61,18 @@ app.get("/api/notes/:id", (req, res) => {
     }
 })
 
-app.post('/api/notes', (req, res) => {
-    const note = req.body
-    console.log(note);
-    res.json(note)
+app.post("/api/notes", (req, res) => {
+    const body = req.body
+
+    if(body.content == undefined){
+        res.status(404).send({error: "content missing"})
+    }
+    const note = new Note({
+        content: body.content,
+        important: body.important || false
+    })
+
+    note.save().then(item => res.json(item))
 })
 
 app.delete("/api/notes/:id", (req, res) => {
@@ -82,7 +86,7 @@ app.use((req, res) => {
     res.status(404).send({ error: "Cannot find the requested resource" })
 })
 
-const PORT = process.env.PORT || 3001
+const PORT = process.env.PORT
 app.listen(PORT, () => {
     console.log(`Listening on port ${PORT}`)
 })

@@ -1,14 +1,7 @@
+require("dotenv").config()
 const mongoose = require('mongoose')
 
-if (process.argv.length<3) {
-  console.log('give password as argument')
-  process.exit(1)
-}
-
-const password = process.argv[2]
-
-const url =
-  `mongodb+srv://generalKAS:${password}@fullstackopen.rpt7uia.mongodb.net/noteApp?retryWrites=true&w=majority`
+const url = process.env.DB_URL
 
 mongoose.set('strictQuery',false)
 mongoose.connect(url)
