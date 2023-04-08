@@ -1,23 +1,15 @@
-const mongoose = require("mongoose")
-require("dotenv").config()
-
-mongoose.set('strictQuery', false)
-
-const url = process.env.DB_URL
-
-console.log('connecting to', url)
-
-mongoose.connect(url)
-  .then(res => {
-    console.log('connected to MongoDB')
-  })
-  .catch((error) => {
-    console.log('error connecting to MongoDB:', error.message)
-  })
+const mongoose = require('mongoose')
 
 const noteSchema = new mongoose.Schema({
-    content: String,
-    important: Boolean,
+    content: {
+      type: String,
+      minlength: 5,
+      required: true,
+    },
+    important: {
+      type: Boolean,
+      default: false,
+    },
 })
 // I kid you not, this does not work using double-quotes i.e "toJson"
 noteSchema.set('toJSON', {

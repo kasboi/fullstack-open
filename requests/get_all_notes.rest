@@ -1,0 +1,32 @@
+GET http://localhost:3001/null
+
+###
+GET http://localhost:3001/api/notes/
+
+###
+DELETE http://localhost:3001/api/notes/6426bd298e38bb6b828dd043
+
+###
+# The space below is very necessary pfft
+POST http://localhost:3001/api/notes
+Content-Type: application/json
+
+{
+  "content": "Test"
+}
+
+###
+# Error handling tester - unavailable resource
+GET http://localhost:3001/api/not
+###
+# Error handling tester - malformatted id
+GET http://localhost:3001/api/notes/unavailable
+
+###
+PUT http://localhost:3001/api/notes/6426e3968e38bb6b828dd049
+Content-Type: application/json
+
+{
+  "content": "test",
+  "important": false
+}
