@@ -1,4 +1,3 @@
-//It's important that dotenv gets imported before the note model is imported. This ensures that the environment variables from the .env file are available globally before the code from the other modules is imported.
 const notesRouter = require("./controllers/notes")
 const config = require("./utils/config")
 const logger = require("./utils/logger")

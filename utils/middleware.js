@@ -1,10 +1,10 @@
 const logger = require('./logger')
 
 const reqLogger = (req, res, next) => {
-  console.log("Method:", req.method)
-  console.log("Path:  ", req.path)
-  console.log("Body:  ", req.body)
-  console.log("---")
+  logger.info("Method:", req.method)
+  logger.info("Path:  ", req.path)
+  logger.info("Body:  ", req.body)
+  logger.info("---")
   // Call the next middleware
   next()
 }
@@ -14,7 +14,7 @@ const unknownEndpoint = (request, response) => {
 }
 
 const errorHandler = (error, req, res, next) => {
-  console.log(error.message)
+  logger.error(error.message)
 
   if (error.name === "CastError") {
       return res.status(400).send({ error: "malformmated id" })
