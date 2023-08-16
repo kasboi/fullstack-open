@@ -1,4 +1,6 @@
+// Declaring the router/controller
 const notesRouter = require('express').Router()
+// Model defines schema i.e. the structure our DB docs have to adhere to. Otherwise, anything can go into mongoDB
 const Note = require("../models/note")
 
 notesRouter.get("/", (req, res) => {

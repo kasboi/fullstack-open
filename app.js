@@ -1,5 +1,7 @@
 const notesRouter = require("./controllers/notes")
+// Import .env secrets indirectly and conveniently i.e. instead of process.ENV in every file bla bla
 const config = require("./utils/config")
+// Basically posh console (.log & .error)
 const logger = require("./utils/logger")
 const middleware = require("./utils/middleware")
 const express = require("express")
@@ -30,6 +32,7 @@ app.use(express.json())
 // Request Logger middleware
 app.use(middleware.reqLogger)
 
+// All requests to this endpoint is handled by the 'notesRouter' controller
 app.use("/api/notes", notesRouter)
 
 // Route handler for handling unknown endpoints
